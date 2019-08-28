@@ -1,16 +1,16 @@
 <template>
   <div>
-    <menu-main />
+    <app-nav />
     <router-view />
   </div>
 </template>
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import MenuItem from '../components/menu/menuItem.vue';
-  import MenuMain from '../components/menu/menu.vue';
+  import AppNav from '../components/menu/menu.vue';
   @Component({
     components: {
-      MenuMain,
+      AppNav,
       MenuItem
     }
   })

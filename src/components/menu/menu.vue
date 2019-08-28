@@ -20,8 +20,8 @@
       MenuItem
     }
   })
-  export default class MenuMain extends Vue {
-      name = 'MenuMain';
+  export default class AppNav extends Vue {
+      name = 'AppNav';
       activeIndex: string = '/';
       routes = [];
 
