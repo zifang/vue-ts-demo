@@ -20,17 +20,44 @@ module.exports = {
     // eslint-loader 是否在保存的时候检查
     lintOnSave: true,
 
-    // chainWebpack: (config) => {
-    //     // 别名配置
-    //     config.resolve.alias
-    //         .set('@', path.relative(__dirname, './src'));
-    // },
+    chainWebpack: (config) => {
+        // 别名配置
+        config.resolve.alias
+            .set('@', path.relative(__dirname, './src'));
+        // vue cli3.0 使用 svg-sprite webpack的配置
+        config.module.rules.delete('svg'); //重点:删除默认配置中处理svg,
+        //const svgRule = config.module.rule('svg')
+        //svgRule.uses.clear()
+        config.module
+            .rule('svg-sprite-loader')
+            .test(/\.svg$/)
+            .include
+            .add(resolve('src/icons')) //处理svg目录
+            .end()
+            .use('svg-sprite-loader')
+            .loader('svg-sprite-loader')
+            .options({
+                symbolId: 'icon-[name]'
+            });
+    },
+
+    configureWebpack: {
+        'devtool': '#source-map',
+        node: {
+            process: true
+        },
+        plugins: [
+            new MonacoWebpackPlugin(webpack, {
+                languages: ['javascript', 'python', 'html']
+            })
+        ]
+    },
 
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    configureWebpack: (config) => {
-
-    },
+    // configureWebpack: (config) => {
+       
+    // },
 
     // 生产环境是否生成 sourceMap 文件
     productionSourceMap: false,
